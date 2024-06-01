@@ -1,7 +1,7 @@
 <template>
     <div class="min-h-screen flex-col flex items-center justify-between bg-gray-100 ">
         <!-- ========== MAIN CONTENT ========== -->
-        <main class="  md:w-3/4 lg:w-3/4 xl:w-1/2 flex flex-col items-center justify-center flex-grow">
+        <main class=" md:w-3/4 lg:w-3/4 xl:w-1/2 flex flex-col items-center justify-center flex-grow">
             <div class="bg-white shadow-md rounded-lg p-8">
                 <h1 class="text-4xl font-bold text-slate-700 mb-6 text-center">
                     About
