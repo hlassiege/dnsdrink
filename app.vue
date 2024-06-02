@@ -11,6 +11,21 @@ useSeoMeta({
     twitterDescription: description,
 })
 
+const pirschCode = process.env.PIRSCH_CODE
+if (pirschCode) {
+    useHead(() => ({
+        script: [
+            {
+                src: 'https://api.pirsch.io/pa.js',
+                id: 'pianjs',
+                defer: true,
+                'data-code': pirschCode,
+                type: 'text/javascript',
+            },
+        ],
+    }))
+}
+
 
 useHead({
     htmlAttrs: {
