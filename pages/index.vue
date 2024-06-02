@@ -51,7 +51,7 @@
                                             You win !
                                         </h3>
                                         <div class="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-                                            This domain is not registered. You are safe!
+                                            The domain {{ domainNameCorrected }}  is not registered. You are safe!
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                             You lose !
                                         </h3>
                                         <div class="mt-2 text-sm text-gray-600 dark:text-neutral-400">
-                                            This domain is already registered. <strong>Drink up!</strong> <br>
+                                            The domain {{ domainNameCorrected }} is already registered. <strong>Drink up!</strong> <br>
                                             <br>
 
                                             <span v-if="gameLostBecauseOfDomainSquatter">
@@ -182,6 +182,7 @@ type ResultType = {
 }
 
 const brandName = ref('')
+const domainNameCorrected = ref('')
 
 const resetGame = () => {
     endGame.value = false
@@ -197,6 +198,7 @@ const checkDomain = async () => {
         const result = await $fetch<ResultType>(`/api/domains?domain=${brandName.value}`, {
             method: 'POST'
         })
+        domainNameCorrected.value = result.domain
         if (result.isDomainActive) {
             gameLost.value = true
             if (result.isForSale) {
