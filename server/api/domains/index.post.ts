@@ -48,6 +48,7 @@ export default defineEventHandler(async (event) => {
         const isDomainActive = ['active'].some(element => domainStatus.includes(element))
 
         const summary = {
+            domain,
             isForSale,
             isDomainActive
         }
@@ -55,10 +56,7 @@ export default defineEventHandler(async (event) => {
         // Stockez le résultat dans le cache
         await hubKV().set(domain, summary, { expirationTtl: 60 * 60 * 24 * 30 }) // 30 days
 
-        return {
-            domain,
-            ...summary
-        }
+        return summary
     } catch (error: any) {
         console.error('Erreur lors de la vérification du domaine:', error)
         if (error instanceof H3Error) throw error
