@@ -1,16 +1,17 @@
-# NuxtHub Starter Template
+# DNS Drinking game
 
-This starter lets you get started with [NuxtHub](https://hub.nuxt.com) in seconds.
+It's really, really hard to find a domain name nowadays.
 
-- [Documentation](https://hub.nuxt.com)
+I'm so bored with domain squatter that I decided to make a game out of it.
 
-## Features
+Your challenge is to find a domain name that is not taken. If you find one, you win. If you don't, you drink.
 
-- Image upload with [`hubBlob()`](http://hub.nuxt.com/docs/storage/blob)
-- Save chat messages with [`hubDatabase()`](http://hub.nuxt.com/docs/storage/database)
-- Save server redirects with [`hubKV()`](http://hub.nuxt.com/docs/storage/kv)
+It's your turn : [https://dnsdrink.pages.dev](https://dnsdrink.pages.dev)
 
-## Setup
+
+## Contributing
+
+### Setup
 
 Make sure to install the dependencies:
 
@@ -28,7 +29,7 @@ yarn install
 bun install
 ```
 
-## Development Server
+### Development Server
 
 Start the development server on `http://localhost:3000`:
 
@@ -46,7 +47,7 @@ yarn dev
 bun run dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
