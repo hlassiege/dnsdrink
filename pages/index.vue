@@ -162,6 +162,10 @@
                 <NuxtLink to="/about" class="text-slate-900 underline">
                     About
                 </NuxtLink>
+                -
+                <NuxtLink to="https://github.com/hlassiege/dnsdrink" class="text-slate-900 underline">
+                    Github
+                </NuxtLink>
             </div>
         </footer>
     </div>
