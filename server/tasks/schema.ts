@@ -1,5 +1,11 @@
 import consola from 'consola'
 
+/*
+
+FIXME : this task is not working as expected. It does not run the task on cloudflare workers.
+It's only working on the local environment.
+
+*/
 export default defineTask({
     meta: {
         name: 'schema',

@@ -4,6 +4,9 @@ import consola from 'consola'
 async function checkQuotaExceeded() {
     const db = hubDatabase()
 
+    // FIXME: this call should be done in a task but I can't get it to work in a task
+    await db.exec('CREATE TABLE IF NOT EXISTS quota (id INTEGER primary key, created_at TEXT DEFAULT CURRENT_TIMESTAMP)')
+
     // check if the number of requests exceeds the quota for this current month
     const quota = 9500
     const count = await db.prepare('SELECT COUNT(*) as count FROM quota WHERE strftime(\'%Y-%m\', created_at) = strftime(\'%Y-%m\', \'now\')').first('count') as number
@@ -19,6 +22,8 @@ async function checkQuotaExceeded() {
 async function addToQuota() {
     const db = hubDatabase()
     await db.exec('INSERT INTO quota (created_at) VALUES (CURRENT_TIMESTAMP)')
+    // FIXME: this call should be done in a task but I can't get it to work in a task
+    await db.prepare('DELETE FROM quota WHERE strftime(\'%Y-%m\', created_at) < strftime(\'%Y-%m\', \'now\')').run()
 }
 
 export default defineEventHandler(async (event) => {
