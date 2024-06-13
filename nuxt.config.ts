@@ -17,5 +17,13 @@ export default defineNuxtConfig({
         blob: true,
         cache: true,
     },
-
+    nitro: {
+        scheduledTasks: {
+            '0 * * * *': ['schema'],
+            '0 0 1 * *': ['purge'],
+        },
+        experimental: {
+            tasks: true
+        }
+    }
 })

@@ -1,4 +1,25 @@
 import {H3Error} from 'h3'
+import consola from 'consola'
+
+async function checkQuotaExceeded() {
+    const db = hubDatabase()
+
+    // check if the number of requests exceeds the quota for this current month
+    const quota = 9500
+    const count = await db.prepare('SELECT COUNT(*) as count FROM quota WHERE strftime(\'%Y-%m\', created_at) = strftime(\'%Y-%m\', \'now\')').first('count') as number
+
+    if (count >= quota) {
+        consola.warn('Quota exceeded')
+        return true
+    }
+
+    return false
+}
+
+async function addToQuota() {
+    const db = hubDatabase()
+    await db.exec('INSERT INTO quota (created_at) VALUES (CURRENT_TIMESTAMP)')
+}
 
 export default defineEventHandler(async (event) => {
 
@@ -29,6 +50,11 @@ export default defineEventHandler(async (event) => {
             return responseFromCache
         }
 
+        const quotaExceeded = await checkQuotaExceeded()
+        if (quotaExceeded) {
+            return createError({ statusCode: 429, statusMessage: 'Quota exceeded', stack : ''})
+        }
+
         const response = await fetch(url, {
             headers: {
                 'x-rapidapi-key': apiKey,
@@ -55,6 +81,8 @@ export default defineEventHandler(async (event) => {
 
         // Stockez le résultat dans le cache
         await hubKV().set(domain, summary, { expirationTtl: 60 * 60 * 24 * 30 }) // 30 days
+
+        await addToQuota()
 
         return summary
     } catch (error: any) {

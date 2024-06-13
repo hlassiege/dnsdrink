@@ -172,6 +172,7 @@
 </template>
 <script setup lang="ts">
 import { ref } from 'vue'
+import {FetchError} from 'ofetch'
 
 const loading = ref(false)
 const endGame = ref(false)
@@ -212,6 +213,14 @@ const checkDomain = async () => {
             gameWin.value = true
         }
     } catch (error) {
+        if (error instanceof FetchError) {
+            const status = error.response?.status
+            if (status === 429) {
+                alert('Too many requests. The game is limited to 10 000 games per month. Please try again next month.')
+            } else {
+                alert('An error occurred. Please try again later: ' + error.message)
+            }
+        }
         console.error(error)
     }
     endGame.value = true
