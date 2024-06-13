@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     },
     nitro: {
         scheduledTasks: {
-            '0 * * * *': ['schema'],
+            '* * * * *': ['schema'],
             '0 0 1 * *': ['purge'],
         },
         experimental: {
