@@ -72,7 +72,7 @@ export default defineEventHandler(async (event) => {
         const data = await response.json()
 
         // Vérifiez le statut du domaine
-        const domainStatus = data.status[0].status
+        const domainStatus = data.status[0].status.split(' ')
 
         // un domaine est à vendre s'il est en summary : marketed, priced, premium
         const isForSale = ['marketed', 'parked', 'priced', 'premium'].some(element => domainStatus.includes(element))
